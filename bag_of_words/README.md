@@ -31,9 +31,15 @@ positivo/negativo e usa uma amostra balanceada de 6.000 avaliações.
 5. Conferência contra `CountVectorizer` e `TfidfVectorizer` — `assert` de igualdade
 6. Classificação com `MultinomialNB` e `LogisticRegression`
 7. Variações de `ngram_range`, `min_df`, `max_df`; termos de maior peso por classe
-8. Onde o método falha (negação, ironia, OOV) e exercícios
+8. Redução morfológica: cru vs. lematização (spaCy) vs. *stemming* (RSLP do NLTK)
+9. Onde o método falha (negação, ironia, OOV) e exercícios
 
 ## Resultado esperado
 
-Acurácia em torno de 92% com unigramas e 93% acrescentando bigramas. A matriz de treino é ~0,4%
+Acurácia de 92,1% com unigramas e 93,1% acrescentando bigramas. A matriz de treino é ~0,4%
 não-zero, o que explica por que o scikit-learn usa representação esparsa.
+
+A seção 8 tem o resultado contraintuitivo do notebook: lematização corta 19% do vocabulário e
+*stemming* corta 45%, e **as duas pioram** a acurácia em ~1,2 ponto percentual. Com `min_df=3` já
+cortando a cauda rara, o que a normalização funde são flexões frequentes — e algumas carregam sinal
+(`recomendo` vs. `recomendaria`). Pré-processamento se mede, não se assume.
